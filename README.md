@@ -1,4 +1,6 @@
 **Nebula: The Ultimate Cosmic Companion - Project Explanation**
+![output 2](https://github.com/user-attachments/assets/52301e05-83c7-4171-b2a4-c2d267189b9e)
+
 Project Overview
 Nebula is a sophisticated React-based chatbot application with an immersive cosmic theme. Unlike basic chatbots that simply respond to user inputs, Nebula creates an engaging, personalized experience through dynamic theming, interactive commands, and a personality that adapts during conversation.
 
@@ -116,4 +118,29 @@ Added animations and responsive design
 Enhanced personality and response generation
 This project demonstrates modern React development practices, CSS animation techniques, and user experience design principles, all while creating an engaging and interactive chatbot experience.
 
+
 Feedback submitted
+
+
+
+
+**Steps to Run the Nebula Chatbot Project**
+Prerequisites
+Node.js (v14.0.0 or higher)
+npm (v6.0.0 or higher)
+Installation Steps
+Clone or download the project
+CopyInsert
+git clone <repository-url>
+Or download and extract the ZIP file to your preferred location.
+Navigate to the project directory
+CopyInsert
+cd react-simple-chatbot
+Install dependencies
+CopyInsert
+npm install
+This will install all the required dependencies defined in package.json.
+Start the development server
+CopyInsert
+npm start
+This will start the development server and automatically open the application in your default web browser at http://localhost:3000.
