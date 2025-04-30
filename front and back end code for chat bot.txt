@@ -1,0 +1,128 @@
+Frontend (React)
+App.js (Main Component)
+import React from 'react';
+import './App.css';
+import Chatbot from './components/Chatbot';
+
+// Main App component that renders the chatbot
+function App() {
+  return (
+    <div className="App">
+      {/* Main heading */}
+      <h1>Simple Chatbot</h1>
+      {/* Chatbot component */}
+      <Chatbot />
+    </div>
+  );
+}
+
+export default App;
+
+Chatbot.js (Chatbot Component)
+
+import React, { useState } from 'react';
+import './Chatbot.css';
+
+// Main Chatbot component
+const Chatbot = () => {
+  // State variables
+  const [messages, setMessages] = useState([]); // Stores all messages
+  const [input, setInput] = useState(''); // Stores current input
+
+  // Function to send message
+  const sendMessage = (message) => {
+    // Add user message to messages array
+    setMessages(prev => [...prev, { text: message, sender: 'user' }]);
+    
+    // Simulate bot response after 1 second
+    setTimeout(() => {
+      const response = generateResponse(message);
+      setMessages(prev => [...prev, { text: response, sender: 'bot' }]);
+    }, 1000);
+  };
+
+  // Function to generate bot responses
+  const generateResponse = (message) => {
+    const text = message.toLowerCase();
+    
+    // Simple response logic
+    if (text.includes('hello')) {
+      return "Hi there! How can I help you?";
+    } else if (text.includes('how are you')) {
+      return "I'm doing great! How about you?";
+    } else if (text.includes('bye')) {
+      return "Goodbye! Have a nice day!";
+    } else {
+      return "I'm here to help! What would you like to know?";
+    }
+  };
+
+  return (
+    <div className="chatbot-container">
+      {/* Message List */}
+      <div className="message-list">
+        {messages.map((msg, index) => (
+          <div key={index} className={`message ${msg.sender}`}>
+            {msg.text}
+          </div>
+        ))}
+      </div>
+      
+      {/* Input Area */}
+      <div className="input-container">
+        <input 
+          type="text" 
+          value={input}
+          onChange={(e) => setInput(e.target.value)} // Update input state
+          onKeyPress={(e) => e.key === 'Enter' && sendMessage(input)} // Send on Enter
+          placeholder="Type your message..."
+        />
+        <button onClick={() => sendMessage(input)}>Send</button> {/* Send button */}
+      </div>
+    </div>
+  );
+};
+
+export default Chatbot;
+
+
+Backend (Node.js)
+server.js (Main Server File)
+
+const express = require('express'); // Import express
+const cors = require('cors'); // Import CORS middleware
+const app = express(); // Create express app
+
+// Enable CORS for all requests
+app.use(cors());
+// Parse JSON bodies
+app.use(express.json());
+
+// Chat endpoint
+app.post('/api/chat', (req, res) => {
+  const { message } = req.body; // Get message from request
+  const response = generateResponse(message); // Generate response
+  res.json({ response }); // Send response back
+});
+
+// Response generation function
+const generateResponse = (message) => {
+  const text = message.toLowerCase(); // Convert to lowercase
+  
+  // Simple response logic
+  if (text.includes('hello')) {
+    return "Hi there! How can I help you?";
+  } else if (text.includes('how are you')) {
+    return "I'm doing great! How about you?";
+  } else if (text.includes('bye')) {
+    return "Goodbye! Have a nice day!";
+  } else {
+    return "I'm here to help! What would you like to know?";
+  }
+};
+
+// Start server
+const PORT = process.env.PORT || 5000; // Use environment port or 5000
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`); // Log server start
+});
